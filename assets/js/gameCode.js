@@ -6,7 +6,7 @@ var charImages = [
 				"assets/images/vader.jpg",
 				"assets/images/kylo.jpg"
 					];
-var charHPVals = [100, 125, 110, 100]; 
+var charHPVals = [100, 125, 110, 105]; 
 var charCounterAttackVals = [15, 5, 20, 10];
 var playerOne;
 var defender;
