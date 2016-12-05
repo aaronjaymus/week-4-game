@@ -57,6 +57,9 @@ h2 {
 	margin-right: 50px;
 	width: 400px;
 }
+#gameMessages p {
+	margin: 5px;
+}
 .charDivShow p {
 	text-align: center;
 	margin: 2px 0;
