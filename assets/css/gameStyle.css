@@ -1,0 +1,52 @@
+html {
+	background-image:    url(../images/background.jpg);
+    background-size:     cover;                     
+    background-repeat:   no-repeat;
+    background-position: center center;   
+}
+body {
+    margin: 0px 25px;    
+	color: #ffffff;  
+}
+h1 {
+	float: right;
+}
+.charDivShow {
+	display: inline-block;
+	height: 150px;
+	width: 150px;
+	overflow: auto;
+	margin-right: 5px;
+}
+.charImgShow {
+	height: 100px;
+	width: 100px;
+	margin: 0 25px;
+	
+}
+#gameContainer {
+	clear: both;
+}
+#characterStart .charDivShow {
+	background-color: #ffffff;
+	color: #000000;
+}
+#playerOne .charDivShow {
+	background-color: #008000;
+}
+#enemiesAlive .charDivShow {
+	background-color: #ff0000;
+	color: #000000;
+}
+#playerTwo .charDivShow {
+	background-color: #000000;
+}
+.charDivShow p {
+	text-align: center;
+	margin: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
