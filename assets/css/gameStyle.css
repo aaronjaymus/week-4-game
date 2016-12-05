@@ -17,6 +17,7 @@ h1 {
 }
 h2 {
 	margin: 5px 5px;
+	font-size: 1em;
 }
 .charDivShow {
 	display: inline-block;
