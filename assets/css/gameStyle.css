@@ -40,17 +40,22 @@ h2 {
 #characterStart .charDivShow {
 	background-color: #ffffff;
 	color: #000000;
-	outline: 2px solid #ffff00;
+	outline: 2px solid #ffd700;
 }
 #playerOne .charDivShow {
-	background-color: #008000;
+	background-color: #ffd700;
+	color: #696969;
+	outline-color: #a9a9a9;
+
 }
 #enemiesAlive .charDivShow {
 	background-color: #ff0000;
 	color: #000000;
+	outline-color: #a9a9a9;
 }
 #playerTwo .charDivShow {
 	background-color: #000000;
+	outline-color: #ffd700;
 }
 #gameHeader {
 	float: right;
@@ -67,6 +72,7 @@ h2 {
 	font-family: arial;
 	padding: 1px;
 	font-size: 8px;
+	font-weight: bold;
 }
 button {
   background: #fafa3a;
