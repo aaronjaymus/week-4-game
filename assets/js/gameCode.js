@@ -6,8 +6,8 @@ var charImages = [
 				"assets/images/vader.jpg",
 				"assets/images/kylo.jpg"
 					];
-var charHPVals = [100, 120, 150, 120]; 
-var charCounterAttackVals = [20, 10, 30, 15];
+var charHPVals = [100, 120, 125, 110]; 
+var charCounterAttackVals = [10, 12, 15, 20];
 var playerOne;
 var defender;
 var playerOneSelected = false;
@@ -96,6 +96,7 @@ var game = {
 		this.printPlayerOne(playerOne);
 		charArray.splice(index, 1);
 		this.printCharDivGame();
+		$("#characterHeaderStart").empty();
 		console.log("New Array:");
 		console.log(charArray);
 	}, //makes playerOne the first character selected, splices that character out of charArray, prints to playerOne location
@@ -134,7 +135,7 @@ var game = {
 		console.log(playerOne);
 		console.log(defender);
 		this.checkAndPrint();
-	},
+	},//makes changes to HP values and attack count for player One and defender. 
 	checkAndPrint () {
 		$("#playerOne").empty();
 		$("#playerTwo").empty();
@@ -154,7 +155,7 @@ var game = {
 				this.restart();
 			}
 		}
-	},
+	},//prints new divs with new HP vals to playerOne and defender locations, checks if anyone as lost. 
 	restart () {
 		gameOn = false;
 		var gameOverButton = $("<button>");
