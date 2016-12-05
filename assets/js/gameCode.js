@@ -15,6 +15,10 @@ var defenderSelected = false;
 var enemiesDefeated = 0;
 var gameOn = true;
 
+var winSong = new Audio("assets/sounds/starwars.mp3");
+var loseSong = new Audio("assets/sounds/imperial.mp3");
+var saberOn = new Audio("assets/sounds/saberon.mp3");
+var attackSound = new Audio("assets/sounds/clash.mp3");
 	
 function character (name, img, hp, counter) {
 	this.name = name;
@@ -26,6 +30,14 @@ function character (name, img, hp, counter) {
 } // creates character
 
 var game = {
+	start () {
+		game.createChar();
+		game.printCharDivStart();
+
+		$("#attackButton").click( function () {
+			game.attackStart();
+		});
+	},
 	createChar() {
 		for(var i=0; i < charNames.length; i++){
 			var newChar = new character(charNames[i], charImages[i], charHPVals[i], charCounterAttackVals[i]);
@@ -70,10 +82,12 @@ var game = {
 	printPlayerOne(player) {
 		var charToPrint = this.createCharDiv(player, 0);
 		$("#playerOne").append(charToPrint);
+		saberOn.play();
 	},//prints first selected player to #playerOne id
 	printDefender(player) {
 		var charToPrint = this.createCharDiv(player, 0);
 		$("#playerTwo").append(charToPrint);
+		saberOn.play();
 	},//prints defender selected to #playerTwo id
 	chooseCharacter(position) {
 		if (gameOn) {
@@ -132,6 +146,7 @@ var game = {
 		playerOne.hp = playerOne.hp - defender.counterVal;
 		defender.hp = defender.hp - currentAttack;
 		playerOne.attackCount++;
+		attackSound.play();
 		$("#messageOne").html(playerOne.name +" attacked " + defender.name + " for " + currentAttack + " hit points.");
 		$("#messageTwo").html(defender.name + " attacked " + playerOne.name + " for " + defender.counterVal + " hit points.");
 		console.log(playerOne);
@@ -144,6 +159,7 @@ var game = {
 		this.printPlayerOne(playerOne);
 		this.printDefender(defender);
 		if(playerOne.hp <= 0) {
+			loseSong.play();
 			$("#messageOne").html("You have been defeated by " + defender.name + ". GAME OVER!");
 			$("#messageTwo").empty();
 			this.restart();
@@ -154,6 +170,7 @@ var game = {
 			this.emptyMessage();
 			$("#messageOne").html("You defeated " + defender.name + "!");
 			if (enemiesDefeated === 3) {
+				winSong.play();
 				$("#messageOne").html("You have defeated all enemies. You win!");
 				$("#messageTwo").empty();
 				this.restart();
@@ -179,12 +196,7 @@ var game = {
 
 $(document).ready( function () {
 
-	game.createChar();
-	game.printCharDivStart();
-
-	$("#attackButton").click( function () {
-		game.attackStart();
-	});
+	game.start();
 
 });
 
