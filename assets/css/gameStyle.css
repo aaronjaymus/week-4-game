@@ -16,20 +16,20 @@ h1 {
 	
 }
 h2 {
-	margin: 10px 5px;
+	margin: 5px 5px;
 }
 .charDivShow {
 	display: inline-block;
-	height: 155px;
-	width: 155px;
+	height: 130px;
+	width: 130px;
 	overflow: auto;
 	margin-right: 10px;
 	outline: 2px solid #ffffff;
 	
 }
 .charImgShow {
-	height: 100px;
-	width: 100px;
+	height: 75px;
+	width: 75px;
 	margin: 0 25px;
 	
 }
