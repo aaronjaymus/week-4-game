@@ -21,17 +21,17 @@ h2 {
 }
 .charDivShow {
 	display: inline-block;
-	height: 130px;
-	width: 130px;
+	height: 115px;
+	width: 115px;
 	overflow: auto;
 	margin-right: 10px;
 	outline: 2px solid #ffffff;
 	
 }
 .charImgShow {
-	height: 75px;
-	width: 75px;
-	margin: 0 25px;
+	height: 85px;
+	width: 85px;
+	margin: 0 15px;
 	
 }
 #gameContainer {
@@ -59,10 +59,11 @@ h2 {
 }
 .charDivShow p {
 	text-align: center;
-	margin: 0;
-	height: 23px;
+	margin: 2px 0;
+	height: 9px;
 	font-family: arial;
-	padding: 2px;
+	padding: 1px;
+	font-size: 8px;
 }
 button {
   background: #133145;
