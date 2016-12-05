@@ -6,8 +6,8 @@ var charImages = [
 				"assets/images/vader.jpg",
 				"assets/images/kylo.jpg"
 					];
-var charHPVals = [100, 120, 125, 110]; 
-var charCounterAttackVals = [10, 12, 15, 20];
+var charHPVals = [100, 125, 110, 100]; 
+var charCounterAttackVals = [15, 5, 20, 10];
 var playerOne;
 var defender;
 var playerOneSelected = false;
@@ -96,6 +96,7 @@ var game = {
 		this.printPlayerOne(playerOne);
 		charArray.splice(index, 1);
 		this.printCharDivGame();
+		this.emptyMessage();
 		$("#characterHeaderStart").empty();
 		console.log("New Array:");
 		console.log(charArray);
@@ -109,6 +110,7 @@ var game = {
 		charArray.splice(index, 1);
 		$("#enemiesAlive").empty();
 		this.printCharDivGame();
+		this.emptyMessage();
 		console.log("Newer Array:");
 		console.log(charArray);
 	}, //makes defender the next character selected, splices that character out of charArray, prints to defender location
@@ -142,13 +144,15 @@ var game = {
 		this.printPlayerOne(playerOne);
 		this.printDefender(defender);
 		if(playerOne.hp <= 0) {
-			$("#messageOne").html("You have been defeated. GAME OVER!");
+			$("#messageOne").html("You have been defeated by " + defender.name + ". GAME OVER!");
 			$("#messageTwo").empty();
 			this.restart();
 		} else if (defender.hp <= 0) {
 			$("#playerTwo").empty();
 			enemiesDefeated++;
 			defenderSelected = false;
+			this.emptyMessage();
+			$("#messageOne").html("You defeated " + defender.name + "!");
 			if (enemiesDefeated === 3) {
 				$("#messageOne").html("You have defeated all enemies. You win!");
 				$("#messageTwo").empty();
@@ -164,6 +168,10 @@ var game = {
 							location.reload();
 						});
 		$("#restartButton").append(gameOverButton);				
+	},
+	emptyMessage () {
+		$("#messageOne").empty();
+		$("#messageTwo").empty();
 	}
 	
 }
