@@ -1,11 +1,18 @@
 var charArray = []; //holds all characters
 var charNames = ["Obi-Wan Kenobi", "Luke Skywalker", "Darth Vader", "Kylo Ren"];
+var charSide = ["light", "light", "dark", "dark"];
 var charImages = [
 				"assets/images/obiwan.jpg", 
 				"assets/images/luke.jpg",
 				"assets/images/vader.jpg",
 				"assets/images/kylo.jpg"
 					];
+var charSounds = [
+				"assets/sounds/force.mp3",
+				"assets/sounds/badfeeling.mp3",
+				"assets/sounds/darkside.mp3",
+				"assets/sounds/kylo.wav"
+					];					
 var charHPVals = [100, 125, 110, 105]; 
 var charCounterAttackVals = [15, 5, 20, 10];
 var playerOne;
@@ -15,16 +22,19 @@ var defenderSelected = false;
 var enemiesDefeated = 0;
 var gameOn = true;
 
-var winSong = new Audio("assets/sounds/starwars.mp3");
-var loseSong = new Audio("assets/sounds/imperial.mp3");
+var lightWin = new Audio("assets/sounds/starwars.mp3");
+var darkWin = new Audio("assets/sounds/imperial.mp3");
 var saberOn = new Audio("assets/sounds/saberon.mp3");
 var attackSound = new Audio("assets/sounds/clash.mp3");
+var deathSound = new Audio("assets/sounds/pain.mp3");
 	
-function character (name, img, hp, counter) {
+function character (name, img, hp, counter, sound, side) {
 	this.name = name;
 	this.img = img;
+	this.side = side;
 	this.hp = hp;
 	this.counterVal = counter;
+	this.audio = sound;
 	this.attackVal = 8;
 	this.attackCount = 1;
 } // creates character
@@ -40,7 +50,7 @@ var game = {
 	},
 	createChar() {
 		for(var i=0; i < charNames.length; i++){
-			var newChar = new character(charNames[i], charImages[i], charHPVals[i], charCounterAttackVals[i]);
+			var newChar = new character(charNames[i], charImages[i], charHPVals[i], charCounterAttackVals[i], charSounds[i], charSide[i]);
 			charArray.push(newChar);
 		} 
 		console.log("Initial array:");
@@ -82,12 +92,12 @@ var game = {
 	printPlayerOne(player) {
 		var charToPrint = this.createCharDiv(player, 0);
 		$("#playerOne").append(charToPrint);
-		saberOn.play();
+		
 	},//prints first selected player to #playerOne id
 	printDefender(player) {
 		var charToPrint = this.createCharDiv(player, 0);
 		$("#playerTwo").append(charToPrint);
-		saberOn.play();
+		
 	},//prints defender selected to #playerTwo id
 	chooseCharacter(position) {
 		if (gameOn) {
@@ -102,24 +112,34 @@ var game = {
 		}
 	},//selects player one or defender. takes in current div value as position of character in chararray
 	choosePlayerOne(position) {
+
 		$("#characterStart").empty();
 		var index = position;
 		console.log("Selected position " + index);
 		playerOne = charArray[index];
 		playerOneSelected = true;
+		
+		var pOneAudio = new Audio(playerOne.audio);
+		pOneAudio.play();
+		
 		this.printPlayerOne(playerOne);
 		charArray.splice(index, 1);
 		this.printCharDivGame();
 		this.emptyMessage();
 		$("#characterHeaderStart").empty();
-		console.log("New Array:");
-		console.log(charArray);
+		//console.log("New Array:");
+		//console.log(charArray);
 	}, //makes playerOne the first character selected, splices that character out of charArray, prints to playerOne location
 	chooseDefender(position) {
+		
 		var index = position;
 		console.log("Selected position " + index);
 		defender = charArray[index];
 		defenderSelected = true;
+
+		var pTwoAudio = new Audio(defender.audio);
+		pTwoAudio.play();
+		
 		this.printDefender(defender);
 		charArray.splice(index, 1);
 		$("#enemiesAlive").empty();
@@ -159,18 +179,27 @@ var game = {
 		this.printPlayerOne(playerOne);
 		this.printDefender(defender);
 		if(playerOne.hp <= 0) {
-			loseSong.play();
+			if(playerOne.side === "light"){
+				darkWin.play();
+			} else {
+				lightWin.play();
+			}
 			$("#messageOne").html("You have been defeated by " + defender.name + ". GAME OVER!");
 			$("#messageTwo").empty();
 			this.restart();
 		} else if (defender.hp <= 0) {
+			deathSound.play();
 			$("#playerTwo").empty();
 			enemiesDefeated++;
 			defenderSelected = false;
 			this.emptyMessage();
 			$("#messageOne").html("You defeated " + defender.name + "!");
 			if (enemiesDefeated === 3) {
-				winSong.play();
+				if(playerOne.side === "light"){
+					lightWin.play();
+				} else {
+					darkWin.play();
+				}
 				$("#messageOne").html("You have defeated all enemies. You win!");
 				$("#messageTwo").empty();
 				this.restart();
